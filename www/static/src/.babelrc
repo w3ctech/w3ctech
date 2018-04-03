@@ -1,0 +1,33 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "modules": false
+            }
+        ],
+        // "stage-2",
+        "@babel/react"
+    ],
+    "plugins": [
+        "react-hot-loader/babel",//top level variables are registered
+        [
+            "@babel/transform-runtime", {
+                "helpers": true,
+                "polyfill": true,
+                "regenerator": true,
+                "moduleName": "@babel/runtime",
+                "useBuiltIns": false,
+                "useESModules": false
+            }
+        ],
+        "@babel/plugin-transform-destructuring",
+        "@babel/plugin-syntax-object-rest-spread",
+        "@babel/plugin-proposal-object-rest-spread",
+        "transform-decorators-legacy",
+        "transform-decorators",
+        ["transform-class-properties", { "spec": true }],
+        "add-module-exports"
+    ],
+    "comments": false
+}

@@ -1,0 +1,47 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "launch",
+            "type": "node",
+            "request": "launch",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "env": {
+                // "NODE_ENV": "development"
+            },
+            "envFile": "${workspaceRoot}/.env",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector",
+            "sourceMaps": true,
+            "smartStep": true,
+            "timeout": 30000,
+            "skipFiles": [
+                "node_modules/**"
+            ],
+            "trace": "verbose",
+            "port": 9876
+        },
+        {
+            "name": "attach",
+            "type": "node",
+            "request": "attach",
+            "protocol": "inspector",
+            "port": 9877,
+            "restart": true,
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/app/**/*.js"
+            ]
+        }
+    ]
+}

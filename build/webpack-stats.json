@@ -1,0 +1,30 @@
+{
+    "status": "done",
+    "publicPath": "http://localhost:3001/static/dist/",
+    "chunks": {
+        "home": [
+            {
+                "name": "home.js",
+                "publicPath": "http://localhost:3001/static/dist/home.js",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/home.js"
+            },
+            {
+                "name": "home.js.map",
+                "publicPath": "http://localhost:3001/static/dist/home.js.map",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/home.js.map"
+            }
+        ],
+        "lib": [
+            {
+                "name": "lib.js",
+                "publicPath": "http://localhost:3001/static/dist/lib.js",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/lib.js"
+            },
+            {
+                "name": "lib.js.map",
+                "publicPath": "http://localhost:3001/static/dist/lib.js.map",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/lib.js.map"
+            }
+        ]
+    }
+}
