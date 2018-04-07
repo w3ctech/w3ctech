@@ -2,7 +2,7 @@
  * @file HTTP wrapper of fetch
  * @author chris<wfsr@foxmail.com>
  */
-import Cookie from './Cookie';
+import Cookie from './cookie';
 
 const TIMEOUT = 30000;
 // 返回数据错误，请稍后重试(-500)
@@ -17,7 +17,11 @@ const NETWORK_ERROR_MESSAGE = 'Looks like you have an unstable network at the mo
 const NETWORK_TIMEOUT_MESSAGE = 'Looks like the server is taking too long to respond '
     + 'because of poor connectivity or a server error. '
     + 'Please contact us or try again later.';
-const csrfPolyfill = data => data.csrfmiddlewaretoken = Cookie.get('csrftoken');
+const csrfPolyfill = (...args) => {
+  const [data] = args;
+  data.csrfmiddlewaretoken = Cookie.get('csrftoken');
+  return data;
+};
 
 /**
  * 响应处理
@@ -28,53 +32,51 @@ const csrfPolyfill = data => data.csrfmiddlewaretoken = Cookie.get('csrftoken');
  * @return {JSON} 接口响应结果
  */
 export async function request(url, options, callback) {
-    let res;
-    try {
-        res = await fetch(url, options);
-    }
-    catch (e) {
-        const isNetError = ('Network request failed' === e.message);
-        return {
-            status: isNetError ? -1 : -500,
-            data: isNetError ? NETWORK_ERROR_MESSAGE : SERVER_ERROR_MESSAGE
-        };
-    }
-
-    if (res.ok) {
-        let json;
-        try {
-            json = await res.json();
-        }
-        catch (e) {
-            return {
-                status: -500,
-                data: DATA_ERROR_MESSAGE
-            };
-        }
-        if (typeof callback === 'function') {
-            callback(json);
-        }
-
-        return json;
-    }
-
+  let res;
+  try {
+    res = await fetch(url, options);
+  } catch (e) {
+    const isNetError = (e.message === 'Network request failed');
     return {
-        status: res.status,
-        data: SERVER_ERROR_MESSAGE
+      status: isNetError ? -1 : -500,
+      data: isNetError ? NETWORK_ERROR_MESSAGE : SERVER_ERROR_MESSAGE,
     };
+  }
+
+  if (res.ok) {
+    let json;
+    try {
+      json = await res.json();
+    } catch (e) {
+      return {
+        status: -500,
+        data: DATA_ERROR_MESSAGE,
+      };
+    }
+    if (typeof callback === 'function') {
+      callback(json);
+    }
+
+    return json;
+  }
+
+  return {
+    status: res.status,
+    data: SERVER_ERROR_MESSAGE,
+  };
 }
 
 function delay(ms = 200) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function timeout(delay = TIMEOUT) {
-    return new Promise(resolve => {
-        setTimeout(() => resolve({
-            status: 408,
-            data: NETWORK_TIMEOUT_MESSAGE
-        }), delay);
-    });
+function timeout(ms = TIMEOUT) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({
+      status: 408,
+      data: NETWORK_TIMEOUT_MESSAGE,
+    }), ms);
+  });
 }
 
 /**
@@ -86,23 +88,25 @@ function timeout(delay = TIMEOUT) {
  * @return {JSON} 请求返回的数据
  */
 export async function post(url, data, callback) {
-    csrfPolyfill(data);
+  csrfPolyfill(data);
 
-    const body = Object.entries(data).map(([key, value]) => key + '=' + encodeURIComponent(value)).join('&');
+  const body = Object.entries(data).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        credentials: 'include',
-        body: body
-    };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    credentials: 'include',
+    body,
+  };
 
-    return await Promise.race([
-        request(url, options, callback),
-        timeout()
-    ]);
+  const result = await Promise.race([
+    request(url, options, callback),
+    timeout(),
+  ]);
+
+  return result;
 }
 
 const cache = new Map();
@@ -116,42 +120,46 @@ const cache = new Map();
  * @return {JSON} 请求返回的数据
  */
 export async function get(url, params, callback) {
-    const options = {
-        method: 'GET',
-        credentials: 'include'
-    };
+  const options = {
+    method: 'GET',
+    credentials: 'include',
+  };
 
-    if (params) {
-        const query = Object.entries(params)
-            .map(([key, value]) => key + '=' + encodeURIComponent(value))
-            .join('&');
+  let newUrl = url;
 
-        if (url.indexOf('?') < 0) {
-            url += '?';
-        }
+  if (params) {
+    const query = Object.entries(params)
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join('&');
 
-        url += query;
-
+    if (newUrl.indexOf('?') < 0) {
+      newUrl += '?';
     }
 
-    const cached = cache.get(url);
-    if (cached) {
-        await delay(200);
-        return Promise.resolve(cached);
+    newUrl += query;
+  }
+
+  const cached = cache.get(newUrl);
+
+  if (cached) {
+    await delay(200);
+    return Promise.resolve(cached);
+  }
+
+  const newCallback = (json) => {
+    if (json.status === 0) {
+      cache.set(newUrl, json);
     }
 
-    const newCallback = json => {
-        if (json.status === 0) {
-            cache.set(url, json);
-        }
+    if (typeof callback === 'function') {
+      callback(json);
+    }
+  };
 
-        if (typeof callback === 'function') {
-            callback(json);
-        }
-    };
+  const result = await Promise.race([
+    request(newUrl, options, newCallback),
+    timeout(),
+  ]);
 
-    return await Promise.race([
-        request(url, options, newCallback),
-        timeout()
-    ]);
+  return result;
 }

@@ -1,4 +1,4 @@
-import {css} from 'styled-components';
+import { css } from 'styled-components';
 
 const setMedia = size => (...args) => css`
     @media (min-width: ${size}px) {
@@ -7,14 +7,14 @@ const setMedia = size => (...args) => css`
 `;
 
 export const media = {
-    giant: setMedia(1200),
-    desktop: setMedia(992),
-    tablet: setMedia(768),
-    phone: setMedia(376)
+  giant: setMedia(1200),
+  desktop: setMedia(992),
+  tablet: setMedia(768),
+  phone: setMedia(376),
 };
 
 export function truncate(width) {
-    return `
+  return `
     width: ${width};
     white-space: nowrap;
     overflow: hidden;
