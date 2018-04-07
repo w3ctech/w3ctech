@@ -1,4 +1,4 @@
 module.exports = {
-    localeId: 'zh-cn',
-    translation: {}
+  localeId: 'zh-cn',
+  translation: {}
 };

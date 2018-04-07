@@ -5,12 +5,12 @@ const notifier = require('node-notifier');
 
 const instance = new Application({
   ROOT_PATH: __dirname,
-  watcher: watcher,
+  watcher,
   transpiler: [babel, {
-    presets: ['think-node']
+    presets: ['think-node'],
   }],
   notifier: notifier.notify.bind(notifier),
-  env: 'development'
+  env: 'development',
 });
 
 instance.run();

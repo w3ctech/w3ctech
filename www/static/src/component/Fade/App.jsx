@@ -2,27 +2,28 @@
  * @file Fade transition
  * @author liuliang<liuliang@w3ctech.com>
  */
-
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
 const propTypes = {
-    ...CSSTransition.propTypes
+  ...CSSTransition.propTypes,
+  timeout: PropTypes.number,
+  classNames: PropTypes.string,
 };
 const defaultProps = {
-    timeout: 200,
-    classNames: 'fade'
+  timeout: 200,
+  classNames: 'fade',
 };
 
-const Fade = ({children, ...props}) => (
-    <CSSTransition
-        mountOnEnter
-        unmountOnExit
-        {...props}
-    >
-        {children}
-    </CSSTransition>
+const Fade = ({ children, ...props }) => (
+  <CSSTransition
+    mountOnEnter
+    unmountOnExit
+    {...props}
+  >
+    {children}
+  </CSSTransition>
 );
 
 Fade.propTypes = propTypes;

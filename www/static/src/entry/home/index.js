@@ -7,9 +7,9 @@ import saga from './saga';
 import App from './app';
 import entry from '../';
 
-const render = entry({reducer, saga}, App);
+const render = entry({ reducer, saga }, App);
 
 if (module.hot) {
-    module.hot.accept('./app', () => render(App));
-    module.hot.accept('./reducer', () => render.replaceReducer(reducer));
+  module.hot.accept('./app', () => render(App));
+  module.hot.accept('./reducer', () => render.replaceReducer(reducer));
 }

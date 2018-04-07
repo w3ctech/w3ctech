@@ -1,4 +1,2 @@
 // default config
-module.exports = {
-  port: 7777
-};
+module.exports = {};

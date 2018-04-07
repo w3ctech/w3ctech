@@ -1,4 +1,4 @@
-// production config, it will load in production enviroment
+// production config, it will load in production environment
 module.exports = {
   workers: 0
 };

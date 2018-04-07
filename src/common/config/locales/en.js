@@ -1,4 +1,4 @@
 module.exports = {
-    localeId: 'en',
-    translation: {}
+  localeId: 'en',
+  translation: {}
 };
