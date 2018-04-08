@@ -16,7 +16,7 @@
     "last 4 Opera versions"
   ],
   "bugs": {
-    "url": "https://github.com/w3ctechgit/w3ctech/issues"
+    "url": "https://github.com/w3ctech/website/issues"
   },
   "config": {
     "commitizen": {
@@ -50,7 +50,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/w3ctechgit/w3ctech"
+    "url": "https://github.com/w3ctech/website"
   },
   "scripts": {
     "build": "webpack --config ./build/webpack.config.prod.js -p --progress --colors",

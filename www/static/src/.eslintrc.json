@@ -41,6 +41,7 @@
         "allowImplicit": false
       }
     ],
+    "linebreak-style": 0,
     "global-require": 0,
     "no-await-in-loop": "off",
     "no-compare-neg-zero": "error",
