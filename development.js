@@ -7,10 +7,10 @@ const instance = new Application({
   ROOT_PATH: __dirname,
   watcher,
   transpiler: [babel, {
-    presets: ['think-node'],
+    babelrc: true
   }],
   notifier: notifier.notify.bind(notifier),
-  env: 'development',
+  env: 'development'
 });
 
 instance.run();

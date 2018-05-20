@@ -1,17 +1,17 @@
 const InspectorProxy = require('inspector-proxy');
 
 const proxy = new InspectorProxy({
-  port: 9877,
+  port: 9877
 });
 const childProcess = require('child_process');
 
 const instance = childProcess.fork('./development.js', {
-  execArgv: ['--inspect'],
+  execArgv: ['--inspect']
 });
 instance.on('message', (msg) => {
   if (msg.act === 'inspectPort' && msg.port) {
     proxy.start({
-      debugPort: msg.port,
+      debugPort: msg.port
     });
   }
 });

@@ -1,16 +1,27 @@
 {
     "presets": [
         [
-            "es2015",
+            "@babel/env",
             {
-                "loose": true
+                "modules": false
             }
-        ],
-        "stage-1"
+        ]
     ],
     "plugins": [
-        "transform-runtime"
+      [
+          "@babel/transform-runtime", {
+              "helpers": true,
+              "polyfill": true,
+              "regenerator": true,
+              "moduleName": "@babel/runtime",
+              "useBuiltIns": false,
+              "useESModules": false
+          }
+      ],
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-destructuring",
+      "@babel/plugin-syntax-object-rest-spread",
+      "@babel/plugin-proposal-object-rest-spread"
     ],
-    "sourceMaps": true,
     "comments": false
 }

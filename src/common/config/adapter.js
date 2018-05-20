@@ -1,5 +1,11 @@
+require('@babel/register')({
+  // Ignore everything in node_modules except node_modules/thinkjs-webpack-loader.
+  ignore: [/node_modules\/(?!thinkjs-webpack-loader)/]
+});
+
 const fileCache = require('think-cache-file');
 const nunjucks = require('think-view-nunjucks');
+const webpackLoader = require('thinkjs-webpack-loader');
 const fileSession = require('think-session-file');
 const mysql = require('think-model-mysql');
 const { Console, File, DateFile } = require('think-logger3');
@@ -18,7 +24,7 @@ exports.cache = {
   },
   file: {
     handle: fileCache,
-    cachePath: path.join(think.ROOT_PATH, 'runtime/cache'), // absoulte path is necessarily required
+    cachePath: path.join(think.ROOT_PATH, 'runtime/cache'), // absolute path is necessarily required
     pathDepth: 1,
     gcInterval: 24 * 60 * 60 * 1000 // gc interval
   }
@@ -106,5 +112,16 @@ exports.logger = {
     pattern: '-yyyy-MM-dd',
     alwaysIncludePattern: true,
     filename: path.join(think.ROOT_PATH, 'logs/app.log')
+  }
+};
+
+/**
+ * thinkjs webpack loader adapter config
+ * @type {Object}
+ */
+exports.webpackLoader = {
+  type: 'webpackLoader',
+  webpackLoader: {
+    handle: webpackLoader
   }
 };

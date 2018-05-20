@@ -23,8 +23,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
+export default
 @connect(mapStateToProps, mapDispatchToProps)
-export default class App extends Component {
+class App extends Component {
     static propTypes = {
     }
 
