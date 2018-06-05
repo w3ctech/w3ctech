@@ -1,6 +1,30 @@
 {
-    "status": "error",
+    "status": "done",
     "publicPath": "http://localhost:3001/static/dist/",
-    "error": "ModuleBuildError",
-    "message": "Module build failed: TypeError: Property right of AssignmentExpression expected node to be of a type [\"Expression\"] but instead got null\n    at Object.validate (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/types/lib/definitions/utils.js:128:13)\n    at validate (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/types/lib/validators/validate.js:17:9)\n    at builder (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/types/lib/builders/builder.js:46:27)\n    at Object.AssignmentExpression (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/types/lib/builders/generated/index.js:233:31)\n    at /Users/liuliang/Desktop/project/w3ctech/node_modules/babel-plugin-transform-decorators-legacy/lib/index.js:75:22\n    at Array.map (<anonymous>)\n    at applyEnsureOrdering (/Users/liuliang/Desktop/project/w3ctech/node_modules/babel-plugin-transform-decorators-legacy/lib/index.js:72:53)\n    at PluginPass.ClassExpression (/Users/liuliang/Desktop/project/w3ctech/node_modules/babel-plugin-transform-decorators-legacy/lib/index.js:209:38)\n    at newFn (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/visitors.js:193:21)\n    at NodePath._call (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/path/context.js:53:20)\n    at NodePath.call (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/path/context.js:40:17)\n    at NodePath.visit (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/path/context.js:88:12)\n    at TraversalContext.visitQueue (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/context.js:118:16)\n    at TraversalContext.visitSingle (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/context.js:90:19)\n    at TraversalContext.visit (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/context.js:146:19)\n    at Function.traverse.node (/Users/liuliang/Desktop/project/w3ctech/node_modules/@babel/traverse/lib/index.js:94:17)"
+    "chunks": {
+        "home": [
+            {
+                "name": "home.js",
+                "publicPath": "http://localhost:3001/static/dist/home.js",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/home.js"
+            },
+            {
+                "name": "home.js.map",
+                "publicPath": "http://localhost:3001/static/dist/home.js.map",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/home.js.map"
+            }
+        ],
+        "lib": [
+            {
+                "name": "lib.js",
+                "publicPath": "http://localhost:3001/static/dist/lib.js",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/lib.js"
+            },
+            {
+                "name": "lib.js.map",
+                "publicPath": "http://localhost:3001/static/dist/lib.js.map",
+                "path": "/Users/liuliang/Desktop/project/w3ctech/www/static/dist/lib.js.map"
+            }
+        ]
+    }
 }
